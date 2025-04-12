@@ -15,8 +15,6 @@ jobs:
     - name: Install Node.js dependencies and build
       run: |
         cd frontend
-        npm install
-        npm run build
 
     - name: Install Python dependencies
       run: |
