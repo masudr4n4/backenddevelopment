@@ -4,3 +4,4 @@ todo.db
 alembic.ini
 *.pyc
 .idea
+venv/
