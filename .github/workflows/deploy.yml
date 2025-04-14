@@ -12,9 +12,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Install Node.js dependencies and build
-      run: |
-        cd frontend
+    # - name: Install Node.js dependencies and build
+    #   run: |
+    #     cd frontend
 
     - name: Install Python dependencies
       run: |
