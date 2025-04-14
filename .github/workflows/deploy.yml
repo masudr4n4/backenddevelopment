@@ -17,7 +17,7 @@ jobs:
     #     cd frontend
 
     - name: Install Python dependencies
-      run: |
+      script: |
         python -m pip install --upgrade pip
         ${{ github.workspace }}
         pip install -r requirements.txt
