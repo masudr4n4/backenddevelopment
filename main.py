@@ -3,7 +3,7 @@ from auths import auth
 from todos import todos
 from fan_followers import followers
 from fastapi.middleware.cors import CORSMiddleware
-app = FastAPI()
+app = FastAPI(openapi_uri="/api/openapi.json")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # For development only!
