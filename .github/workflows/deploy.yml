@@ -28,6 +28,7 @@ jobs:
           # cd ..
           source venv/bin/activate
           pip install -r requirements.txt
+          echo -e "Current Directory $PWD"
           
           # Restart services
           sudo systemctl restart fastapi
