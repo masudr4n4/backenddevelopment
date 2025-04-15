@@ -18,7 +18,7 @@ jobs:
         script: |
           cd ${{ secrets.PROJECT_DIR }}
           git pull origin master
-          
+          ls
           # Frontend
           # cd frontend
           # rm -rf build
