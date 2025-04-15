@@ -17,8 +17,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd ${{ secrets.PROJECT_DIR }}
+          cd backenddevelopment
           git pull origin master
-          ls
           # Frontend
           # cd frontend
           # rm -rf build
