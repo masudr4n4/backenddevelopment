@@ -23,6 +23,10 @@ jobs:
           pip install -r requirements.txt
           echo -e "Current Directory $PWD"
           
+          cd frontend/todo_app
+          npm install
+          npm run dev
+          
           # Restart services
           sudo systemctl restart fastapi
           sudo systemctl restart nginx
