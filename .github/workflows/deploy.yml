@@ -25,21 +25,4 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.SSH_KEY }}
         script: |
-          cd ${{ secrets.PROJECT_DIR }}
-          git pull origin master
-          
-          # Frontend
-          cd frontend
-          # rm -rf build
-          # cp -r ../../frontend/build .
-          
-          # Backend
-          # cd ..
-          source venv/bin/activate
-          pip install -r requirements.txt
-          
-          # Restart services
-          sudo systemctl restart fastapi
-          sudo systemctl restart nginx
-          
-          echo "Deployment completed!"
+          whoami
