@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { AddPerson } from './componants/utils'
+import InfoBoard from './componants/InfoBoard'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -32,6 +33,7 @@ function App() {
       <AddPerson name="Masud">
         <p className='text-amber-400'>He is having 5 years of experience as qa engineer!</p>
       </AddPerson>
+      <InfoBoard/>
     </>
   )
 }
