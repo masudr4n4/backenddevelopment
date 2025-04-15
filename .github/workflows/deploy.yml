@@ -14,6 +14,23 @@ jobs:
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          whoami
+          cd ${{ secrets.PROJECT_DIR }}
+          git pull origin master
+          
+          # Frontend
+          # cd frontend
+          # rm -rf build
+          # cp -r ../../frontend/build .
+          
+          # Backend
+          # cd ..
+          source venv/bin/activate
+          pip install -r requirements.txt
+          
+          # Restart services
+          sudo systemctl restart fastapi
+          sudo systemctl restart nginx
+          
+          echo "Deployment completed!"
