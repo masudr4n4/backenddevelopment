@@ -18,6 +18,7 @@ jobs:
         script: |
           cd ${{ secrets.PROJECT_DIR }}
           cd backenddevelopment
+          ls
           git pull origin master
           # Frontend
           # cd frontend
