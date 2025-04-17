@@ -5,9 +5,10 @@ function Player({name,symbol}){
     const [isEditing,updateEdit] = useState(false);
 
     function changeHandler(event){
+        console.log(event);
         updatePlayerName(event.target.value)
     }
-    let playerBlock = <span className="text-2xl text-cyan-700 mr-5 flex-1">{playerName}</span>
+    let playerBlock = <span className="text-2xl mr-5 flex-1 bg-cyan-500 w-32 p-2 shadow-amber-200 rounded-xl">{playerName}</span>
     if (isEditing){
         playerBlock= <input type="text" placeholder="Enter Name" className="input flex-1" required defaultValue={playerName} onChange={changeHandler}/>
     }
