@@ -39,7 +39,7 @@ export default function InfoBoard(){
         <div className="info">
              <div className="card bg-base-100 shadow-lg">
                 <div className="card-body">
-                    <h2 className="text-3xl font-bold">{data[selectedSKill].description}</h2>
+                    <h2 className="text-xl">{data[selectedSKill].description}</h2>
                     </div>
                 </div>
                 </div>

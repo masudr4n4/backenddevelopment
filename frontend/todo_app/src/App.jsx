@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { AddPerson } from './componants/utils'
 import InfoBoard from './componants/InfoBoard'
+import TicTocToe from './componants/tictoctoe'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -17,15 +18,6 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card bg-base-100 w-96 shadow-xl">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
       <p className="text-gray-600">
         Click on the Vite and React logos to learn more
       </p>
@@ -34,6 +26,7 @@ function App() {
         <p className='text-amber-400'>He is having 5 years of experience as qa engineer!</p>
       </AddPerson>
       <InfoBoard/>
+      <TicTocToe/>
     </>
   )
 }

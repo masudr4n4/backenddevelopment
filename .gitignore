@@ -5,3 +5,4 @@ alembic.ini
 *.pyc
 .idea
 venv/
+*.service
