@@ -7,21 +7,23 @@ const board = [
 ]
 
 function Player({name,symbol,isActive}){
-    const [playerName,updatePlayerName] = useState(false);
+    const [playerName,updatePlayerName] = useState(name);
     const [isEditing,updateEdit] = useState(false);
 
     function changeHandler(event){
         console.log(event);
         updatePlayerName(event.target.value)
     }
-    let playerBlock = <span className="text-2xl mr-5 flex-1 bg-cyan-200 w-32 p-2 shadow-amber-200 rounded-xl">{playerName}</span>
+    let playerBlock = <span className="text-xl flex-1 bg-cyan-200 shadow-amber-200 rounded-2xl p-1">{playerName}</span>
     if (isEditing){
         playerBlock= <input type="text" placeholder="Enter Name" className="input flex-1" required defaultValue={playerName} onChange={changeHandler}/>
     }
     return <div className="flex-1 text-center" playerid={symbol}>
-        <div>
+        <div className="flex">
         {playerBlock}
-        <button className={`btn flex-1 ${isEditing?"bg-emerald-50":"bg-blue-300"}`} onClick={()=>updateEdit(!isEditing)}>{isEditing ? "Save" : "Edit"}</button>
+        <span className="flex-1">
+            <button className={`btn ${isEditing?"bg-emerald-50":"bg-blue-300"}`} onClick={()=>updateEdit(!isEditing)}>{isEditing ? "Save" : "Edit"}</button>
+        </span>
         </div>
         <p className="flex-1">Player Symbol: <span className="text-2xl">{symbol}</span></p>
         </div>
