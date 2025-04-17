@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Toast from "./ToastMessage";
+import Toast from "./ToastMessage.jsx";
 const board = [
     [null,null,null],
     [null,null,null],
