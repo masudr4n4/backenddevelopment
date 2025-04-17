@@ -24,7 +24,7 @@ const data= {
 
 function Button({item,id,clickHandler,isSelected}){
 return (
-    <button className={`btn flex-1 ${isSelected ? "btn-active":""}`} key={id} onClick={clickHandler}>{item}</button>
+    <button className={`btn flex-1 ${isSelected ? "bg-sky-500/50":""}`} key={id} onClick={clickHandler}>{item}</button>
 )
 }
 
@@ -32,7 +32,7 @@ export default function InfoBoard(){
     const [selectedSKill,updateSkill] = useState("Python");
     const skills = ["Python","JavaScript","Java","SQL","QA"]
     return <>
-    <div className="info-container mx-12">
+    <div className="info-container mx-12 bg-transparent p-6">
         <div className="info-button flex ">
         {skills.map((item,index)=>(<Button item={item} key={index} clickHandler={()=>updateSkill(item)} isSelected={item==selectedSKill}/>))}
         </div>
