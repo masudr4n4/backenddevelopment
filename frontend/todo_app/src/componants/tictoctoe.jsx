@@ -1,10 +1,11 @@
 import { useState } from "react"
-
+import Toast from "./ToastMessage";
 const board = [
     [null,null,null],
     [null,null,null],
     [null,null,null]
 ]
+let cordinate =undefined;
 
 function Player({name,symbol,isActive}){
     const [playerName,updatePlayerName] = useState(name);
@@ -36,6 +37,7 @@ function Board({currentPlayer,playerHandler}){
     function boardclickHandler(row,col){
         if(!currentBoard[row][col]){
             playerHandler();
+            cordinate=[row,col]
         }
         console.log("clicked element index: ",row,col)
         updateBoard((currentBoard) =>{
@@ -71,6 +73,8 @@ function Board({currentPlayer,playerHandler}){
 
 export default function TicTocToe(){
     const [currentActivePlayer,updateCurrentPlayer] = useState('X');
+    
+
 
     function changeplayer(){
         console.log("Changing Player ,current player: ",currentActivePlayer)
@@ -90,13 +94,14 @@ export default function TicTocToe(){
         </h1>
         <div className="playground">
             <div className="players flex">
-               <Player name={"player 1"} symbol={"X"} isActive={currentActivePlayer=="X"}/>
-               <Player name={"player 2"} symbol={"O"} isActive={currentActivePlayer=="O"}/>
+            <Player name={"player 1"} symbol={"X"} isActive={currentActivePlayer=="X"}/>
+            <Player name={"player 2"} symbol={"O"} isActive={currentActivePlayer=="O"}/>
             </div>
             <p className="text-blue-600/50 dark:text-sky-400/50 font-bold content-center text-center">Next turn is for <span className="text-red-300">{currentActivePlayer}</span> symbol holder! </p>
             <div className="board flex flex-col justify-center items-center">
                 <Board currentPlayer={currentActivePlayer} playerHandler={changeplayer}/>
             </div>
+            { cordinate ?<Toast message={`Player with ${currentActivePlayer=="X"?"O":"X"} symbol has just click on cordinate: ${cordinate}  !!`} type="info"/> : ''}
             
         </div>
     </div>
