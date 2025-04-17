@@ -32,7 +32,7 @@ export default function InfoBoard(){
     const [selectedSKill,updateSkill] = useState("Python");
     const skills = ["Python","JavaScript","Java","SQL","QA"]
     return <>
-    <div className="info-container mx-12 bg-transparent p-6">
+    <div className="info-container mx-0 md:mx-12 bg-transparent p-6">
         <div className="info-button flex ">
         {skills.map((item,index)=>(<Button item={item} key={index} clickHandler={()=>updateSkill(item)} isSelected={item==selectedSKill}/>))}
         </div>

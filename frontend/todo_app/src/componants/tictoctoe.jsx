@@ -57,7 +57,7 @@ function Board({currentPlayer,playerHandler}){
         <ol key={rowIndex}>
             <div className="flex flex-row" key={rowIndex}>
                 {row.map((col,colIndex)=>(
-                    <li key={colIndex} className="btn bg-amber-50 m-2 w-40 h-40" onClick={()=>(boardclickHandler(rowIndex,colIndex))}> 
+                    <li key={colIndex} className="btn bg-amber-50 m-2 w-20 md:w-40 h-20 md:h-40" onClick={()=>(boardclickHandler(rowIndex,colIndex))}> 
                     <button> 
                         {col}
                     </button>
@@ -84,7 +84,7 @@ export default function TicTocToe(){
         })
     }
     return <>
-    <div className="bg-cyan-100 mx-10 p-3">
+    <div className="bg-cyan-100 mx-0 md:mx-10 p-3">
         <h1 className="text-3xl font-bold text-center">
             Tic-Toc-Toe
         </h1>
