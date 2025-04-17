@@ -88,7 +88,7 @@ export default function TicTocToe(){
         })
     }
     return <>
-    <div className="bg-cyan-100 mx-0 md:mx-10 p-3">
+    <div className="bg-cyan-100 mx-0 md:mx-10 p-3 mb-10">
         <h1 className="text-3xl font-bold text-center">
             Tic-Toc-Toe
         </h1>
