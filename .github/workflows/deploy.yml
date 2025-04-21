@@ -18,7 +18,7 @@ jobs:
           script: |
             cd ${{ secrets.PROJECT_DIR }}
             cd backenddevelopment
-            git pull origin master
+            git pull origin master --ff-only
             source venv/bin/activate
             pip install -r requirements.txt
             echo -e "Current Directory $PWD"
