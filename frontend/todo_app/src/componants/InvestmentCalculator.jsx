@@ -33,6 +33,7 @@ export default function Calculator(){
         let r = parseFloat(data.rate);
         let n = parseInt(data.year);
         let pmt = parseFloat(data.annualInvestment);
+        let fv = p;
         for (let year = 1; year < n+1; year++){
             let currentYeardata = {
                 "capital":p,
@@ -40,9 +41,9 @@ export default function Calculator(){
                 "year":year,
                 "annualInvestment":pmt
             }
-            let fv = (p*((1+r)**(n-1))/ r) + (pmt*((1+r)**(n-1))/r)
+            let profit = p*(r/100)
+            fv += profit
             // let fv = 50000000;
-            let profit = fv-(p+pmt)
             currentYeardata["fv"] = fv;
             currentYeardata["profit"] = profit;
             roiData.push(currentYeardata)
@@ -105,34 +106,34 @@ export default function Calculator(){
             <figure className="flex flex-col gap-2 bg-fuchsia-300 p-4">
                 <label className="input">
                 Capital
-                <input type="text" className="input input-accent" placeholder="1" onChange={capitalHandler} />
+                <input type="number" className="input input-accent"  required placeholder="1" onChange={capitalHandler} />
                 </label>
                 <label className="input">
                 Annual Investment
-                <input type="text" className="input input-accent" placeholder="1.1" onChange={annoualInvestmentHandler}/>
+                <input type="number" className="input input-accent" placeholder="1.1" onChange={annoualInvestmentHandler}/>
                 </label>
                 <label className="input">
                 Rate
-                <input type="text" className="input input-accent" placeholder="1.1" defaultValue = {1.1} onChange={profitRateHandler}/>
+                <input type="number" className="input input-accent" placeholder="1.1" defaultValue = {1.1} onChange={profitRateHandler}/>
                 </label>
                 <label className="input">
                 Year
                 <input
-  type="number"
-  className="input validator input-accent"
-  required
-  placeholder="Type a number between 1 to 10"
-  min="1"
-  max="10"
-  title="Must be between be 1 to 10"
-  defaultValue={1}
-  onChange={timeHandler}
-/>
-                {/* <input type="text" className="input input-accent" placeholder="1" onChange={timeHandler} defaultValue={1}/> */}
+                    type="number"
+                    className="input validator input-accent"
+                    required
+                    placeholder="Type a number between 1 to 10"
+                    min="1"
+                    max="10"
+                    title="Must be between be 1 to 10"
+                    defaultValue={1}
+                    onChange={timeHandler}
+                />
+
                 </label>
             </figure>
             <div className="card-body bg-lime-50">
-                <h2 className="card-title">Card Title</h2>
+                <h2 className="card-title">Results.....</h2>
                 <div className={`overflow-x-auto  mx-10 mb-10 ${currentData.usersInput.capital>0?undefined:"hidden"}`}>
                     <table className="table">
                         <thead>
