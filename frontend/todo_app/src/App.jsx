@@ -5,6 +5,7 @@ import './App.css'
 import { AddPerson } from './componants/utils'
 import InfoBoard from './componants/InfoBoard'
 import TicTocToe from './componants/tictoctoe'
+import Calculator from './componants/InvestmentCalculator'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -27,6 +28,7 @@ function App() {
       </AddPerson>
       <InfoBoard/>
       <TicTocToe/>
+      <Calculator />
     </>
   )
 }
