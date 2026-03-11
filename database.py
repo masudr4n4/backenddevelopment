@@ -1,15 +1,22 @@
 from typing import Annotated
 import os
+from dotenv import load_dotenv
 from fastapi import Depends
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
 from auths.helper import get_user_by_token
 
-SQLALCHEMY_DATABASE_URL =os.environ.get('DATABASE_URL')
+load_dotenv()
+SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL")
+if not SQLALCHEMY_DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is not set. Copy example.env to .env and set DATABASE_URL.")
 
 Base = declarative_base()
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL,
+    connect_args={"connect_timeout": 10},
+)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 
