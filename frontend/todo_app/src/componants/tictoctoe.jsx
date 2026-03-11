@@ -110,7 +110,8 @@ export default function TicTocToe(){
 
     function setGameWinner(win){
         winner = win;
-        alert("We have the winner! ")
+        const winnerName = players[win] || `Player ${win}`;
+        alert(`We have a winner! ${winnerName} wins!`);
         // updateGameStatus(false);
     }
 

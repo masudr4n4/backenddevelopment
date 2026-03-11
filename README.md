@@ -127,6 +127,14 @@ uvicorn main:app --reload
 - API: **http://localhost:8000**
 - Swagger docs: **http://localhost:8000/docs**
 
+**Admin user for Swagger:** To log in from the docs (Authorize button), create an admin user once (with venv activated):
+
+```bash
+python scripts/create_admin_user.py
+```
+
+Then in Swagger UI click **Authorize**, and use username `admin` and password `admin123`.
+
 ### 4. Frontend setup and run
 
 In a **second terminal**:

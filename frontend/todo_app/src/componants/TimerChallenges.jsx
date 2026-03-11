@@ -1,42 +1,64 @@
-import {useState} from 'react';
+import { useState, useRef } from 'react';
 
-export function User({name}){
+export function User({ name }) {
     return (
-        <>
         <h1 className="font-bold text-center my-10">
-            Hello {name}! let's play a game....
+            Hello {name}! let&apos;s play a game....
         </h1>
-        </>
-    )
+    );
 }
-export function Challenge({initialTime}){
-    const [timeRemaining,updateRemainingTime] = useState({
-        "timer":null,
-        "initalTimer":initialTime*1000
-    });
-    function startChallenge(){
-        console.log("Just clicked the button and game started...")
-        const timer = setInterval(() => {
-            updateRemainingTime((timeRemaining)=>(timeRemaining-10))
+
+export function Challenge({ initialTime }) {
+    const [timeRemaining, setTimeRemaining] = useState(initialTime * 1000);
+    const intervalRef = useRef(null);
+
+    function startChallenge() {
+        if (intervalRef.current) return;
+        setTimeRemaining(initialTime * 1000);
+        intervalRef.current = setInterval(() => {
+            setTimeRemaining((prev) => {
+                if (prev <= 10) {
+                    clearInterval(intervalRef.current);
+                    intervalRef.current = null;
+                    return 0;
+                }
+                return prev - 10;
+            });
         }, 10);
-        console.log(timeRemaining);
-    }
-    function stopChallenge(){
-        clearInterval()
     }
 
-    return <>
-    <div className="card w-62 flex-1 p-8">
-        <p>Your challenge..... 5 sec</p>
-        <button className="btn btn-danger" onClick={startChallenge}>
-            start
-        </button>
-        <button className="btn btn-info" onClick={startChallenge}>
-           stop
-        </button>
+    function stopChallenge() {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+    }
 
-    </div>
-    </>
+    function resetChallenge() {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+        setTimeRemaining(initialTime * 1000);
+    }
+
+    return (
+        <div className="card w-62 flex-1 p-8">
+            <p>Your challenge..... {initialTime} sec</p>
+            <p className="my-2 font-mono">Time remaining: {(timeRemaining / 1000).toFixed(2)}s</p>
+            <div className="flex gap-2 flex-wrap">
+                <button type="button" className="btn btn-danger" onClick={startChallenge}>
+                    Start
+                </button>
+                <button type="button" className="btn btn-info" onClick={stopChallenge}>
+                    Stop
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={resetChallenge}>
+                    Reset
+                </button>
+            </div>
+        </div>
+    );
 }
 
 
