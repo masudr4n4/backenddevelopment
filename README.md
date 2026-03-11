@@ -33,45 +33,18 @@ Your `.env` is already set to use the Docker database. To run everything:
    ```bash
    docker compose up -d
    ```
-3. **Run backend + frontend** — either use the one-command script below or run two terminals manually.
-
----
-
-## One-command start: `start.sh`
-
-If **`.env`** is ready and **Docker Postgres is up**, you can start both backend and frontend with a single script (no need to open two terminals):
-
-```bash
-# First time only: install dependencies
-pip install -r requirements.txt
-cd frontend/todo_app && npm install && cd ../..
-
-# From project root: start both servers
-./start.sh
-```
-
-- **Backend** runs at **http://localhost:8000** (docs: http://localhost:8000/docs).
-- **Frontend** runs at **http://localhost:5173**.
-- Press **Ctrl+C** once to stop both.
-
-**Prerequisites:** `.env` file with `SECRET_KEY` and `DATABASE_URL`; Docker Postgres running (`docker compose up -d`). The script checks for `.env` and exits with a message if it’s missing.
-
----
-
-## Manual start (two terminals)
-
-If you prefer to run backend and frontend separately:
-
-1. **Terminal 1 — Backend** (from project root):
+3. **Terminal 1 — Backend:** from project root:
    ```bash
    pip install -r requirements.txt   # once
    uvicorn main:app --reload
    ```
-2. **Terminal 2 — Frontend:**
+4. **Terminal 2 — Frontend:**
    ```bash
    cd frontend/todo_app && npm install && npm run dev
    ```
-3. **Open in browser:** App **http://localhost:5173** · API docs **http://localhost:8000/docs**
+5. **Open in browser:**
+   - App: **http://localhost:5173**
+   - API docs: **http://localhost:8000/docs**
 
 ---
 
@@ -180,14 +153,7 @@ To call the backend from the frontend, use `http://localhost:8000` as the API ba
 
 ## Quick reference
 
-### One command (backend + frontend)
-
-```bash
-# .env and Docker Postgres must be ready
-./start.sh
-```
-
-### Backend only (project root)
+### Backend (project root)
 
 ```bash
 pip install -r requirements.txt
@@ -195,7 +161,7 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-### Frontend only
+### Frontend
 
 ```bash
 cd frontend/todo_app
@@ -208,7 +174,7 @@ npm run dev
 | Area   | Prefix / Path      | Notes |
 |--------|--------------------|--------|
 | Auth   | `/auth`            | `POST /auth/create_user`, `POST /auth/token`, `GET /auth/get_users` |
-| Todos  | (no prefix)        | `GET /todos` (latest 20, newest first), `GET /todo/{id}`, `POST /todo/create`, `PUT /todo/{id}`, `DELETE /todo/{id}` (auth required for write) |
+| Todos  | (no prefix)        | `GET /`, `GET /todo/{id}`, `POST /todo/create`, `PUT /todo/{id}`, `DELETE /todo/{id}` (auth required for write) |
 | Follow | (see router)       | Follow user, list followed, list followers (auth required) |
 
 OpenAPI JSON: **http://localhost:8000/api/openapi.json**
@@ -230,8 +196,7 @@ backenddevelopment/
     └── todo_app/        # React + Vite app
         ├── src/
         │   ├── App.jsx
-        │   ├── api.js, context/
-        │   └── componants/   # Login, CreateTodo, TodoList, Navbar, etc.
+        │   └── componants/   # Login, CreateTodo, etc.
         ├── package.json
         └── vite.config.js
 ```

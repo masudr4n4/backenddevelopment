@@ -1,25 +1,17 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { NavLink } from 'react-router-dom'
 
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/profile", label: "Profile" },
-  { to: "/info-board", label: "Info Board" },
-  { to: "/tic-tac-toe", label: "Tic Tac Toe" },
-  { to: "/calculator", label: "Calculator" },
-  { to: "/timer", label: "Timer" },
-  { to: "/todos", label: "Todos" },
-];
+  { to: '/', label: 'Home' },
+  { to: '/profile', label: 'Profile' },
+  { to: '/info-board', label: 'Info Board' },
+  { to: '/tic-tac-toe', label: 'Tic Tac Toe' },
+  { to: '/calculator', label: 'Calculator' },
+  { to: '/timer', label: 'Timer' },
+  { to: '/login', label: 'Login' },
+  { to: '/todos', label: 'Todos' },
+]
 
 export default function Navbar() {
-  const { isLoggedIn, logout } = useAuth();
-  const navigate = useNavigate();
-
-  function handleLogout() {
-    logout();
-    navigate("/");
-  }
-
   return (
     <header className="navbar bg-base-200 shadow-lg sticky top-0 z-50">
       <div className="navbar-start">
@@ -35,33 +27,13 @@ export default function Navbar() {
               <NavLink
                 to={to}
                 className={({ isActive }) =>
-                  `rounded-lg ${isActive ? "bg-primary text-primary-content font-medium" : "hover:bg-base-300"}`
+                  `rounded-lg ${isActive ? 'bg-primary text-primary-content font-medium' : 'hover:bg-base-300'}`
                 }
               >
                 {label}
               </NavLink>
             </li>
           ))}
-          <li>
-            {isLoggedIn ? (
-              <button
-                type="button"
-                className="btn btn-ghost rounded-lg hover:bg-error/20 text-error"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
-            ) : (
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  `rounded-lg ${isActive ? "bg-primary text-primary-content font-medium" : "hover:bg-base-300"}`
-                }
-              >
-                Login
-              </NavLink>
-            )}
-          </li>
         </ul>
       </div>
       <div className="navbar-end lg:hidden">
@@ -83,31 +55,16 @@ export default function Navbar() {
                 <NavLink
                   to={to}
                   className={({ isActive }) =>
-                    `rounded-lg ${isActive ? "bg-primary text-primary-content" : ""}`
+                    `rounded-lg ${isActive ? 'bg-primary text-primary-content' : ''}`
                   }
                 >
                   {label}
                 </NavLink>
               </li>
             ))}
-            <li>
-              {isLoggedIn ? (
-                <button
-                  type="button"
-                  className="btn btn-ghost rounded-lg text-error"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              ) : (
-                <NavLink to="/login" className="rounded-lg">
-                  Login
-                </NavLink>
-              )}
-            </li>
           </ul>
         </details>
       </div>
     </header>
-  );
+  )
 }
