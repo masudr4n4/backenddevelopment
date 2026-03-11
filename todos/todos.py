@@ -1,3 +1,4 @@
+import asyncio
 from pydantic import BaseModel, Field
 from fastapi import APIRouter, HTTPException, Path
 from starlette import status
@@ -17,9 +18,10 @@ class TodoReq(BaseModel):
     priority: int = Field(default=0)
 
 
-@router.get("/", status_code=status.HTTP_200_OK)
+@router.get("/todos", status_code=status.HTTP_200_OK)
 async def get_all_record(db: db_dependency):
-    return db.query(Todos).limit(20).all()
+    await asyncio.sleep(0.2)  # Simulate slow response (e.g. for testing skeleton loader)
+    return db.query(Todos).order_by(Todos.id.desc()).limit(20).all()
 
 
 @router.get("/todo/{todo_id}", status_code=status.HTTP_200_OK)
