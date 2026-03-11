@@ -6,6 +6,9 @@ import { AddPerson } from './componants/utils'
 import InfoBoard from './componants/InfoBoard'
 import TicTocToe from './componants/tictoctoe'
 import Calculator from './componants/InvestmentCalculator'
+import TimerChallenge from './componants/TimerChallenges'
+import LoginForm from './componants/Login'
+import CreateTodo from "./componants/CreateTodo.jsx";
 function App() {
   const [count, setCount] = useState(0)
 
@@ -29,6 +32,10 @@ function App() {
       <InfoBoard/>
       <TicTocToe/>
       <Calculator />
+
+      {/* < TimerChallenge /> */}
+      <LoginForm />
+      <CreateTodo />
     </>
   )
 }
