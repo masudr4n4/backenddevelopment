@@ -45,59 +45,89 @@ export default function CreateTodo({ onSuccess }) {
   }
 
   return (
-    <div className="card items-center my-10">
-      <h1 className="font-bold text-2xl bg-gradient-to-r from-fuchsia-800 to-fuchsia-200 mb-3">
-        Add new todo!
-      </h1>
-      {error && (
-        <div className="alert alert-error mb-3 text-sm">
-          {error}
+    <div className="card bg-base-200 border border-base-300 shadow-sm rounded-2xl w-full max-w-xl mx-auto lg:mx-0">
+      <div className="card-body gap-6 sm:p-8">
+        <div className="text-center md:text-left space-y-1">
+          <p className="text-xs font-medium uppercase tracking-widest text-primary">
+            New entry
+          </p>
+          <h3 className="text-xl font-semibold text-base-content">Add a todo</h3>
+          <p className="text-sm text-base-content/70">
+            Title and description need at least 3 characters. Priority is 0 (lowest) through 5.
+          </p>
         </div>
-      )}
-      {message && (
-        <div className="alert alert-success mb-3 text-sm">
-          {message}
-        </div>
-      )}
-      <form
-        className="form flex flex-col gap-3 w-72 md:w-76"
-        onSubmit={submitHandler}
-      >
-        <label className="input" htmlFor="title">
-          <input
-            type="text"
-            placeholder="Enter Title"
-            required
-            id="title"
-            name="title"
-            minLength={3}
+
+        {error && (
+          <div className="alert alert-error text-sm" role="alert">
+            <span>{error}</span>
+          </div>
+        )}
+        {message && (
+          <div className="alert alert-success text-sm" role="status">
+            <span>{message}</span>
+          </div>
+        )}
+
+        <form className="flex flex-col gap-5" onSubmit={submitHandler}>
+          <div className="form-control w-full">
+            <label className="label pt-0 pb-1" htmlFor="title">
+              <span className="label-text font-medium">Title</span>
+            </label>
+            <input
+              type="text"
+              placeholder="What needs doing?"
+              required
+              id="title"
+              name="title"
+              minLength={3}
+              disabled={loading}
+              className="input input-bordered w-full bg-base-100 border-base-300 focus:border-primary"
+            />
+          </div>
+
+          <div className="form-control w-full">
+            <label className="label pt-0 pb-1" htmlFor="description">
+              <span className="label-text font-medium">Description</span>
+            </label>
+            <textarea
+              id="description"
+              className="textarea textarea-bordered w-full bg-base-100 border-base-300 focus:border-primary min-h-24"
+              placeholder="Add context, links, or acceptance criteria…"
+              name="description"
+              required
+              minLength={3}
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-control w-full">
+            <label className="label pt-0 pb-1" htmlFor="priority">
+              <span className="label-text font-medium">Priority</span>
+              <span className="label-text-alt text-base-content/50">0–5     :</span>
+            </label>
+            <input
+              type="number"
+              required
+              id="priority"
+              name="priority"
+              placeholder="0"
+              min={0}
+              max={5}
+              disabled={loading}
+              className="input input-bordered w-full bg-base-100 border-base-300 focus:border-primary max-w-[8rem]"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary w-full sm:w-auto sm:min-w-[10rem]"
             disabled={loading}
-          />
-        </label>
-        <textarea
-          className="textarea"
-          placeholder="Enter Description"
-          name="description"
-          required
-          minLength={3}
-          disabled={loading}
-        />
-        <label className="input" htmlFor="priority">
-          <input
-            type="number"
-            required
-            id="priority"
-            name="priority"
-            placeholder="Enter task priority (0-5)"
-            min={0}
-            max={5}
-            disabled={loading}
-          />
-        </label>
-        <button type="submit" className="btn" disabled={loading}>
-          {loading ? "Adding…" : "Add"}
-        </button>
-      </form>
+          >
+            {loading && <span className="loading loading-spinner loading-sm" />}
+            {loading ? "Adding…" : "Add todo"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

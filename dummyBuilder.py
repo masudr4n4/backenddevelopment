@@ -9,7 +9,8 @@ URL = 'http://64.227.191.200'
 
 def add_todos():
     fake = Faker()
-    while True:
+    counter = 0
+    while counter < 500:
         # Generate fake data
         title = fake.sentence()  # Generate a random title sentence
         description = fake.text()  # Generate a random description text
@@ -19,7 +20,7 @@ def add_todos():
         # Define headers
         headers = {
             'accept': 'application/json',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMyIsImlkIjo0LCJleHBpcmVzX2luIjoxNzM5NDQxOTM2Ljc1MTU0NX0.wvdmdR9vZC9hzpc8JNQ4eTnmTUv0rB6Onmg91Wxw9rM',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjoxLCJleHBpcmVzX2luIjoxNzczMjE2MTQwLjAyMjYxN30.yPBzy_IBzvcuw6oO1HxHBwIZhTwRfRpQSAbQVFn3dCw',
             'Content-Type': 'application/json',
         }
 
@@ -36,6 +37,7 @@ def add_todos():
         print(response.status_code)
         # Output the response
         print(response.json())
+        counter += 1
 
 
 def create_user():
@@ -198,4 +200,5 @@ def follow_everybody_everyone():
 
 
 
-follow_everybody_everyone()
+# follow_everybody_everyone()
+add_todos()

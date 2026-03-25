@@ -1,6 +1,6 @@
-import { use, useState } from "react"
+import { useState } from "react"
 import Toast from "./ToastMessage";
-import {WINNER_COMB} from './data.js';
+import { WINNER_COMB } from './data.js';
 
 const board = [
     [null,null,null],
@@ -21,20 +21,54 @@ function Player({name,symbol,isActive,gameStatus}){
         players[symbol] = playerName;
     }
     
-    let playerBlock = <span className="text-xl flex-1 bg-cyan-200 shadow-amber-200 rounded-2xl p-1">{playerName}</span>
+    let playerBlock = (
+        <span className="text-base font-medium flex-1 truncate px-3 py-2 rounded-xl bg-base-100 border border-base-300 text-base-content">
+            {playerName}
+        </span>
+    );
     if (isEditing){
-        playerBlock= <input type="text" placeholder="Enter Name" className="input flex-1" required defaultValue={playerName} onChange={changeHandler} disabled={gameStatus==true}/>
+        playerBlock = (
+            <input
+                type="text"
+                placeholder="Enter name"
+                className="input input-bordered input-sm flex-1 bg-base-100 border-base-300"
+                required
+                defaultValue={playerName}
+                onChange={changeHandler}
+                disabled={gameStatus==true}
+            />
+        );
     }
-    return <div className={`flex-1 text-center ${isActive? "font-bold":undefined}`} playerid={symbol}>
-                <div className="flex">
-                    {playerBlock}
-                    <span className="flex-1">
-                        <button className={`btn ${isEditing?"bg-emerald-50":"bg-blue-300"}`} onClick={()=>updateEdit(!isEditing)} disabled={gameStatus==true}>{isEditing ? "Save" : "Edit"}</button>
-                    </span>
-                </div>
-                <p className="flex-1">Player Symbol: <span className="text-2xl">{symbol}</span></p>
-
+    return (
+        <div
+            className={`flex-1 rounded-2xl border p-4 transition-colors ${
+                isActive
+                    ? "border-primary/50 bg-primary/5 ring-1 ring-primary/20"
+                    : "border-base-300 bg-base-200/80"
+            }`}
+            data-player={symbol}
+        >
+            <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+                {playerBlock}
+                <button
+                    type="button"
+                    className={`btn btn-sm shrink-0 ${
+                        isEditing ? "btn-primary" : "btn-outline border-base-300"
+                    }`}
+                    onClick={()=>updateEdit(!isEditing)}
+                    disabled={gameStatus==true}
+                >
+                    {isEditing ? "Save" : "Edit"}
+                </button>
+            </div>
+            <p className="mt-3 text-sm text-base-content/70">
+                Symbol{" "}
+                <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-base-100 border border-base-300 text-lg font-bold text-primary">
+                    {symbol}
+                </span>
+            </p>
         </div>
+    );
 }
 
 function Board({currentPlayer,playerHandler,gameHandler,gameStatus,setWinner}){
@@ -80,23 +114,34 @@ function Board({currentPlayer,playerHandler,gameHandler,gameStatus,setWinner}){
     }
 
 
-    return <>
-    {currentBoard.map((row,rowIndex)=>(
-        <ol key={rowIndex} className="skeleton">
-            <div className="flex flex-row" key={rowIndex}>
-                {row.map((col,colIndex)=>(
-                    <li key={colIndex} className="btn bg-amber-50 m-2 w-20 md:w-40 h-20 md:h-40" onClick={()=>(boardclickHandler(rowIndex,colIndex))}> 
-                    <button> 
-                        {col}
-                    </button>
-                    </li>))}
-           </div>
-        
-        </ol>))}
-        <button className="btn btn-primary" onClick={resetBoard}>RESET BOARD!</button>
-    </>
+    return (
+        <div className="flex flex-col items-center gap-8 w-full">
+            <div
+                className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-base-300/40 border border-base-300 w-full max-w-[min(100%,20rem)] aspect-square max-h-[min(80vw,20rem)]"
+                role="grid"
+                aria-label="Tic-tac-toe board"
+            >
+                {currentBoard.flatMap((row, rowIndex) =>
+                    row.map((col, colIndex) => (
+                        <button
+                            key={`${rowIndex}-${colIndex}`}
+                            type="button"
+                            className="flex items-center justify-center rounded-xl bg-base-100 border border-base-300 text-3xl sm:text-4xl font-bold text-base-content hover:bg-base-200 active:scale-[0.98] transition-all min-h-0 aspect-square"
+                            onClick={() => boardclickHandler(rowIndex,colIndex)}
+                        >
+                            <span className={col ? "text-primary" : "text-base-content/15 select-none"}>
+                                {col ?? "·"}
+                            </span>
+                        </button>
+                    ))
+                )}
+            </div>
+            <button type="button" className="btn btn-outline border-base-300 btn-wide" onClick={resetBoard}>
+                Reset board
+            </button>
+        </div>
+    );
 }
-
 
 
 
@@ -105,14 +150,12 @@ function Board({currentPlayer,playerHandler,gameHandler,gameStatus,setWinner}){
 export default function TicTocToe(){
     const [currentActivePlayer,updateCurrentPlayer] = useState('X');
     const [isGameStarted,updateGameStatus] = useState(false);
-    // const [winner,updateWinner] = useState(null);
 
 
     function setGameWinner(win){
         winner = win;
         const winnerName = players[win] || `Player ${win}`;
         alert(`We have a winner! ${winnerName} wins!`);
-        // updateGameStatus(false);
     }
 
     function changeGameStatus(event="start"){
@@ -142,22 +185,42 @@ export default function TicTocToe(){
     }
 
 
-    return <>
-    <div className="bg-cyan-100 mx-0 md:mx-10 p-3 mb-10">
-        <h1 className="text-3xl font-bold text-center">
-            Tic-Toc-Toe
-        </h1>
-        <div className="playground">
-            <div className="players flex">
-            <Player name={"player 1"} symbol={"X"} isActive={currentActivePlayer=="X"} gameStatus={isGameStarted}/>
-            <Player name={"player 2"} symbol={"O"} isActive={currentActivePlayer=="O"} gameStatus={isGameStarted}/>
+    return (
+        <div className="w-full max-w-2xl mx-auto px-4 py-10">
+            <header className="text-center mb-8">
+                <p className="text-sm font-medium uppercase tracking-wide text-primary mb-2">
+                    Play
+                </p>
+                <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
+                    Tic-tac-toe
+                </h1>
+                <p className="text-sm text-base-content/70 max-w-md mx-auto">
+                    Edit player names, take turns on the grid, reset anytime.
+                </p>
+            </header>
+
+            <div className="rounded-2xl border border-base-300 bg-base-200 shadow-sm p-4 sm:p-6 md:p-8">
+                <div className="flex flex-col md:flex-row gap-4 mb-6">
+                    <Player name={"Player 1"} symbol={"X"} isActive={currentActivePlayer=="X"} gameStatus={isGameStarted}/>
+                    <Player name={"Player 2"} symbol={"O"} isActive={currentActivePlayer=="O"} gameStatus={isGameStarted}/>
+                </div>
+
+                <div className="rounded-xl bg-base-100/80 border border-base-300 px-4 py-3 mb-6 text-center">
+                    <p className="text-sm text-base-content/80">
+                        Next turn:{" "}
+                        <span className="font-semibold text-primary">{currentActivePlayer}</span>
+                    </p>
+                </div>
+
+                <div className={`flex flex-col items-center ${winner ? "hidden" : ""}`}>
+                    <Board currentPlayer={currentActivePlayer} playerHandler={changeplayer} gameHandler={changeGameStatus} gameStatus={isGameStarted} setWinner={setGameWinner}/>
+                </div>
+                {cordinate ? (
+                    <div className="mt-6 flex justify-center">
+                        <Toast name={letplayerName} message={` clicked cell [${cordinate[0]}, ${cordinate[1]}]`}/>
+                    </div>
+                ) : null}
             </div>
-            <p className="text-blue-600/50 dark:text-sky-400/50 font-bold content-center text-center">Next turn is for <span className="text-red-300">{currentActivePlayer}</span> symbol holder! </p>
-            <div className={`board flex flex-col justify-center items-center ${winner ? "hidden":""}`}>
-                <Board currentPlayer={currentActivePlayer} playerHandler={changeplayer} gameHandler={changeGameStatus} gameStatus={isGameStarted} setWinner={setGameWinner}/>
-            </div>
-            { cordinate ?<Toast name = {letplayerName} message={` has just click on cordinate: ${cordinate}  !!`}/> : ''}
         </div>
-    </div>
-    </>
+    );
 }
